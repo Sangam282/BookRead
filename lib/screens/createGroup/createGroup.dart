@@ -18,6 +18,7 @@ class _CreateGroupState extends State<CreateGroup> {
       MaterialPageRoute(
         builder: (context) => AddBook(
           onGroupCreation: true,
+          onError: false,
           groupName: groupName,
         ),
       ),
@@ -56,7 +57,7 @@ class _CreateGroupState extends State<CreateGroup> {
                     child: const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 80),
                       child: Text(
-                        "Create",
+                        "Add Book",
                         style: TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

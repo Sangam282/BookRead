@@ -8,6 +8,7 @@ import 'package:book_reading_app/widgets/shadowContainer.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 
 class AddBook extends StatefulWidget {
@@ -36,6 +37,13 @@ class _AddBookState extends State<AddBook> {
   final TextEditingController _lengthController = TextEditingController();
 
   DateTime _selectedDate = DateTime.now();
+
+  @override
+  initState() {
+    super.initState();
+    _selectedDate = DateTime(_selectedDate.year, _selectedDate.month,
+        _selectedDate.day, _selectedDate.hour, 0, 0, 0, 0);
+  }
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked =
