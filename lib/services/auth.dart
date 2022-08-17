@@ -37,11 +37,12 @@ class Auth {
       final FirebaseAuth = await _auth.createUserWithEmailAndPassword(
           email: email.trim(), password: password);
       UserModel user = UserModel(
-        uid: FirebaseAuth.user?.uid,
-        email: FirebaseAuth.user?.email,
+        uid: FirebaseAuth.user!.uid,
+        email: FirebaseAuth.user!.email!,
         fullName: fullName.trim(),
         accountCreated: Timestamp.now(),
         notifToken: await _fcm.getToken(),
+        groupId: '',
       );
       String returnString = await DBFuture().createUser(user);
       if (returnString == "success") {
@@ -87,11 +88,12 @@ class Auth {
       UserCredential authResult = await _auth.signInWithCredential(credential);
       if (authResult.additionalUserInfo!.isNewUser) {
         UserModel user = UserModel(
-          uid: authResult.user?.uid,
-          email: authResult.user?.email,
+          uid: authResult.user!.uid,
+          email: authResult.user!.email!,
           fullName: authResult.user?.displayName,
           accountCreated: Timestamp.now(),
           notifToken: await _fcm.getToken(),
+          groupId: '',
         );
         String returnString = await DBFuture().createUser(user);
         if (returnString == "success") {

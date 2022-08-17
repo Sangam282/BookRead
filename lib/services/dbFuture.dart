@@ -17,7 +17,7 @@ class DBFuture {
     List<String> tokens = [];
 
     try {
-      members.add(user.uid!);
+      members.add(user.uid);
       tokens.add(user.notifToken!);
       DocumentReference _docRef;
       if (user.notifToken != null) {
@@ -60,7 +60,7 @@ class DBFuture {
     List<String> members = [];
     List<String> tokens = [];
     try {
-      members.add(userModel.uid!);
+      members.add(userModel.uid);
       tokens.add(userModel.notifToken!);
       await _firestore.collection("groups").doc(groupId).update({
         'members': FieldValue.arrayUnion(members),
@@ -83,7 +83,7 @@ class DBFuture {
     List<String> members = [];
     List<String> tokens = [];
     try {
-      members.add(userModel.uid!);
+      members.add(userModel.uid);
       tokens.add(userModel.notifToken!);
       await _firestore.collection("groups").doc(groupId).update({
         'members': FieldValue.arrayRemove(members),
@@ -230,7 +230,7 @@ class DBFuture {
     try {
       await _firestore.collection("users").doc(user.uid).set({
         'fullName': user.fullName!.trim(),
-        'email': user.email!.trim(),
+        'email': user.email.trim(),
         'accountCreated': Timestamp.now(),
         'notifToken': user.notifToken,
       });
