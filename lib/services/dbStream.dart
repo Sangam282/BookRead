@@ -6,7 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DBStream {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  Stream<UserModel?> getCurrentUser(String uid) {
+  Stream<UserModel> getCurrentUser(String uid) {
     return _firestore
         .collection("users")
         .doc(uid)
@@ -14,7 +14,7 @@ class DBStream {
         .map((docSnapshot) => UserModel.fromDocumentSnapshot(doc: docSnapshot));
   }
 
-  Stream<GroupModel?> getCurrentGroup(String groupId) {
+  Stream<GroupModel> getCurrentGroup(String groupId) {
     return _firestore.collection("groups").doc(groupId).snapshots().map(
         (docSnapshot) => GroupModel.fromDocumentSnapshot(doc: docSnapshot));
   }

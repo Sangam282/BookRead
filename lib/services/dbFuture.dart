@@ -68,11 +68,12 @@ class DBFuture {
       });
 
       await _firestore.collection("users").doc(userModel.uid).update({
-        'groupId': groupId,
+        'groupId': groupId.trim(),
       });
 
       retVal = "success";
     } on PlatformException catch (e) {
+      retVal = "make sure you have right group.ID";
       print(e);
     }
     return retVal;
@@ -177,6 +178,13 @@ class DBFuture {
         "currentBookId": _docRef.id,
         "currentBookDue": book.dateCompleted,
       });
+
+      DocumentSnapshot doc =
+          await _firestore.collection("groups").doc(groupId).get();
+      createNotifications(
+          List<String>.from(doc["tokens"]), book.name!, book.author!);
+
+      retVal = "success";
     } catch (e) {
       print(e);
     }

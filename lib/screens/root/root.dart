@@ -81,6 +81,7 @@ class _OurRootState extends State<OurRoot> {
         retVal = StreamProvider<UserModel?>.value(
           value: DBStream().getCurrentUser(currentUid!),
           initialData: null,
+          catchError: (_, err) => null,
           child: const LoggedIn(),
         );
         break;
@@ -102,13 +103,14 @@ class LoggedIn extends StatelessWidget {
         retVal = StreamProvider<GroupModel?>.value(
           value: DBStream().getCurrentGroup(_userStream.groupId!),
           initialData: null,
+          catchError: (_, err) => null,
           child: const InGroup(),
         );
       } else {
         retVal = const NoGroup();
       }
     } else {
-      retVal = const SplashScreen();
+      retVal = const NoGroup();
     }
     return retVal;
   }
